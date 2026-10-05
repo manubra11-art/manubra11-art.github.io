@@ -565,5 +565,17 @@ footer {
     .steps-card {
         padding: 20px;
     }
+    #qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qrcode img {
+    display: block;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+}
 }
 
