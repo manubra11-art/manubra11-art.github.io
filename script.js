@@ -29,16 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
      * directly from an HMI or printed service label.
      */
 
-    if (typeof QRCode !== "undefined") {
+   
 
-        new QRCode(document.getElementById("qrcode"), {
-            text: demoUrl,
-            width: 190,
-            height: 190,
-            correctLevel: QRCode.CorrectLevel.M
-        });
 
-    }
 
 
     const steps = document.querySelectorAll(".step");
