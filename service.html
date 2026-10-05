@@ -1,191 +1,320 @@
-ocument.addEventListener("DOMContentLoaded", function () {
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    const params = new URLSearchParams(window.location.search);
+    <title>FRINGS Service Dashboard – Demo</title>
 
-    const deviceId =
-        params.get("device") || "AC-2026-017";
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    const alarmId =
-        params.get("alarm") || "A-1042";
+<body>
 
-    document.getElementById("deviceId").textContent = deviceId;
+<header class="topbar">
 
-    const demoUrl =
-        window.location.origin +
-        window.location.pathname +
-        "?device=" +
-        encodeURIComponent(deviceId) +
-        "&alarm=" +
-        encodeURIComponent(alarmId);
+    <div class="brand">
 
-    document.getElementById("demoUrl").textContent = demoUrl;
+        <div class="brand-mark">F</div>
 
+        <div>
+            <div class="brand-name">FRINGS</div>
+            <div class="brand-subtitle">PROCESS TECHNOLOGY</div>
+        </div>
 
-    /*
-     * QR CODE
-     *
-     * The QR contains the device ID and alarm ID.
-     * This allows the troubleshooting page to be opened
-     * directly from an HMI or printed service label.
-     */
+    </div>
 
-    if (typeof QRCode !== "undefined") {
+    <div class="demo-badge">
+        DEMO · INDEPENDENT PROTOTYPE
+    </div>
 
-        new QRCode(document.getElementById("qrcode"), {
-            text: demoUrl,
-            width: 190,
-            height: 190,
-            correctLevel: QRCode.CorrectLevel.M
-        });
-
-    }
+</header>
 
 
-    const steps = document.querySelectorAll(".step");
-    const completedCount = document.getElementById("completedCount");
-    const resolutionBox = document.getElementById("resolutionBox");
+<main class="container">
 
-    let completed = 0;
+    <section class="hero">
 
+        <div>
 
-    steps.forEach(function (step) {
+            <div class="eyebrow">
+                SERVICE MANAGEMENT
+            </div>
 
-        const buttons = step.querySelectorAll(".result-btn");
-        const message = step.querySelector(".result-message");
+            <h1>
+                Service Dashboard
+            </h1>
 
-        buttons.forEach(function (button) {
+            <p>
+                Beispielhafte Darstellung, wie strukturierte
+                Troubleshooting-Daten an den technischen Service
+                übergeben werden könnten.
+            </p>
 
-            button.addEventListener("click", function () {
+        </div>
 
-                if (!step.classList.contains("completed")) {
-                    step.classList.add("completed");
-                    completed++;
-                }
-
-                buttons.forEach(function (btn) {
-                    btn.style.opacity = "0.55";
-                });
-
-                button.style.opacity = "1";
-
-                if (button.dataset.result === "OK") {
-
-                    message.textContent =
-                        "Result recorded: check completed successfully.";
-
-                    message.className =
-                        "result-message ok";
-
-                } else {
-
-                    message.textContent =
-                        "Result recorded: deviation detected. Service review may be required.";
-
-                    message.className =
-                        "result-message not-ok";
-                }
-
-                completedCount.textContent = completed;
-
-                if (completed === steps.length) {
-                    resolutionBox.classList.remove("hidden");
-                }
-
-            });
-
-        });
-
-    });
+    </section>
 
 
-    const resolvedBtn =
-        document.getElementById("resolvedBtn");
+    <section class="service-case">
 
-    const serviceBtn =
-        document.getElementById("serviceBtn");
+        <div class="section-heading">
 
-    const serviceCase =
-        document.getElementById("serviceCase");
+            <div>
 
+                <div class="eyebrow">
+                    ACTIVE CASE
+                </div>
 
-    resolvedBtn.addEventListener("click", function () {
+                <h2>
+                    A-1042 · Fermentation Temperature High
+                </h2>
 
-        serviceCase.classList.remove("hidden");
+            </div>
 
-        document.getElementById("caseStatus").textContent =
-            "Resolved";
+            <span class="priority-badge">
+                HIGH PRIORITY
+            </span>
 
-        document.getElementById("recommendedAction").textContent =
-            "No immediate service intervention";
-
-        document.getElementById("priorityBadge").textContent =
-            "RESOLVED";
-
-        window.scrollTo({
-            top: serviceCase.offsetTop - 30,
-            behavior: "smooth"
-        });
-
-    });
+        </div>
 
 
-    serviceBtn.addEventListener("click", function () {
+        <div class="case-grid">
 
-        serviceCase.classList.remove("hidden");
+            <div>
+                <span>CASE ID</span>
+                <strong>SC-2026-0017</strong>
+            </div>
 
-        document.getElementById("caseStatus").textContent =
-            "Service requested";
+            <div>
+                <span>DEVICE</span>
+                <strong>AC-2026-017</strong>
+            </div>
 
-        document.getElementById("recommendedAction").textContent =
-            "FRINGS service team review";
+            <div>
+                <span>ALARM</span>
+                <strong>A-1042</strong>
+            </div>
 
-        document.getElementById("priorityBadge").textContent =
-            "HIGH PRIORITY";
+            <div>
+                <span>PROCESS</span>
+                <strong>Vinegar Fermentation</strong>
+            </div>
 
-        localStorage.setItem(
-            "frings_demo_service_case",
-            JSON.stringify({
-                device: deviceId,
-                alarm: alarmId,
-                timestamp: new Date().toISOString(),
-                status: "Service requested"
-            })
-        );
+            <div>
+                <span>ACTUAL TEMPERATURE</span>
+                <strong>34.8 °C</strong>
+            </div>
 
-        window.scrollTo({
-            top: serviceCase.offsetTop - 30,
-            behavior: "smooth"
-        });
+            <div>
+                <span>SETPOINT</span>
+                <strong>30.0 °C</strong>
+            </div>
 
-    });
+            <div>
+                <span>STATUS</span>
+                <strong>Service requested</strong>
+            </div>
+
+            <div>
+                <span>RECOMMENDED ACTION</span>
+                <strong>FRINGS service team review</strong>
+            </div>
+
+        </div>
 
 
-    document.getElementById("emailBtn")
-        .addEventListener("click", function () {
+        <div class="architecture">
 
-            const subject =
-                "FRINGS Service Request – " +
-                alarmId +
-                " – " +
-                deviceId;
+            <div class="eyebrow">
+                TROUBLESHOOTING RESULTS
+            </div>
 
-            const body =
-                "FRINGS Troubleshooting Demo\n\n" +
-                "Device: " + deviceId + "\n" +
-                "Alarm: " + alarmId + "\n" +
-                "Process: Vinegar Fermentation\n" +
-                "Actual temperature: 34.8 °C\n" +
-                "Setpoint: 30.0 °C\n\n" +
-                "The guided troubleshooting workflow was completed.\n" +
-                "Further service review is requested.\n\n" +
-                "This is an independent application prototype.";
+            <h2>
+                Operator checks
+            </h2>
 
-            window.location.href =
-                "mailto:?subject=" +
-                encodeURIComponent(subject) +
-                "&body=" +
-                encodeURIComponent(body);
 
-        });
+            <div class="step">
 
-});
+                <div class="step-number">
+                    ✓
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Cooling-water supply
+                    </h3>
+
+                    <p>
+                        Operator verified availability of the
+                        cooling-water supply.
+                    </p>
+
+                    <strong>
+                        Result: OK
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    ✓
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Cooling-water flow
+                    </h3>
+
+                    <p>
+                        Flow check completed.
+                    </p>
+
+                    <strong>
+                        Result: OK
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    !
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Cooling valve
+                    </h3>
+
+                    <p>
+                        Valve response could not be confirmed
+                        reliably during the operator check.
+                    </p>
+
+                    <strong>
+                        Result: Further investigation recommended
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="case-actions">
+
+            <a href="index.html" class="primary-btn">
+                ← Back to troubleshooting
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="architecture">
+
+        <div class="eyebrow">
+            SERVICE CONCEPT
+        </div>
+
+        <h2>
+            Potential production architecture
+        </h2>
+
+        <div class="architecture-flow">
+
+            <div class="architecture-item">
+                <strong>PROCESS</strong>
+                <span>Acetator</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>PLC / HMI</strong>
+                <span>Alarm generation</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>QR / ERROR CODE</strong>
+                <span>Service entry point</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>PORTAL</strong>
+                <span>Guided diagnosis</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>SERVICE</strong>
+                <span>Expert intervention</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="service-case">
+
+        <div class="eyebrow">
+            IMPORTANT
+        </div>
+
+        <h2>
+            Prototype disclaimer
+        </h2>
+
+        <p>
+            This website is an independent prototype created for
+            application demonstration purposes. It is not connected
+            to a real FRINGS machine, PLC, service system or customer
+            data.
+        </p>
+
+        <p>
+            In a production implementation, authentication,
+            authorization, HTTPS, OT/IT network segmentation,
+            API security, audit logging, data retention and
+            role-based access control would be required.
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        Independent prototype for application demonstration.
+    </div>
+
+    <div>
+        DEMO · NOT CONNECTED TO A REAL MACHINE
+    </div>
+
+</footer>
+
+</body>
+</html>
