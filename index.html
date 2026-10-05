@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FRINGS Troubleshooting Demo – unabhängiger Prototyp für eine digitale Service-Unterstützung">
+    <title>FRINGS Troubleshooting – A-1042</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-mark">F</div>
+        <div>
+            <div class="brand-name">FRINGS</div>
+            <div class="brand-subtitle">PROCESS TECHNOLOGY</div>
+        </div>
+    </div>
+
+    <div class="demo-badge">
+        DEMO · NOT CONNECTED TO A REAL MACHINE
+    </div>
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+        <div>
+            <div class="eyebrow">DIGITAL SERVICE CONCEPT</div>
+            <h1>Guided Troubleshooting</h1>
+            <p>
+                Schrittweise Unterstützung bei einer Prozessstörung –
+                vom Maschinenalarm bis zur strukturierten Serviceanfrage.
+            </p>
+        </div>
+
+        <div class="alarm-status">
+            <span class="status-dot"></span>
+            ALARM ACTIVE
+        </div>
+    </section>
+
+
+    <section class="alarm-card">
+
+        <div class="alarm-header">
+            <div>
+                <span class="alarm-label">ALARM</span>
+                <h2>A-1042 · FERMENTATION TEMPERATURE HIGH</h2>
+            </div>
+
+            <div class="alarm-severity">
+                HIGH
+            </div>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-item">
+                <span>DEVICE</span>
+                <strong id="deviceId">AC-2026-017</strong>
+            </div>
+
+            <div class="process-item">
+                <span>PROCESS</span>
+                <strong>Vinegar Fermentation</strong>
+            </div>
+
+            <div class="process-item">
+                <span>ACTUAL TEMPERATURE</span>
+                <strong class="temperature">34.8 °C</strong>
+            </div>
+
+            <div class="process-item">
+                <span>SETPOINT</span>
+                <strong>30.0 °C</strong>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="troubleshooting-layout">
+
+        <div class="steps-card">
+
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">STEP-BY-STEP</div>
+                    <h2>Troubleshooting</h2>
+                </div>
+
+                <div class="progress-text">
+                    <span id="completedCount">0</span>/5 completed
+                </div>
+            </div>
+
+
+            <div class="step" data-step="1">
+                <div class="step-number">1</div>
+
+                <div class="step-content">
+                    <h3>Check cooling-water supply</h3>
+                    <p>
+                        Verify that the cooling-water supply is available
+                        and that upstream valves are open.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="result-btn" data-result="OK">
+                            ✓ Supply OK
+                        </button>
+
+                        <button class="result-btn warning" data-result="NOT_OK">
+                            ✕ Supply not OK
+                        </button>
+                    </div>
+
+                    <div class="result-message"></div>
+                </div>
+            </div>
+
+
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+
+                <div class="step-content">
+                    <h3>Check cooling-water flow</h3>
+                    <p>
+                        Verify the indicated flow rate and compare it with
+                        the normal operating range.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="result-btn" data-result="OK">
+                            ✓ Flow OK
+                        </button>
+
+                        <button class="result-btn warning" data-result="NOT_OK">
+                            ✕ Flow too low
+                        </button>
+                    </div>
+
+                    <div class="result-message"></div>
+                </div>
+            </div>
+
+
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+
+                <div class="step-content">
+                    <h3>Check cooling valve</h3>
+                    <p>
+                        Confirm that the cooling valve responds correctly
+                        to the PLC command.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="result-btn" data-result="OK">
+                            ✓ Valve responds
+                        </button>
+
+                        <button class="result-btn warning" data-result="NOT_OK">
+                            ✕ Valve problem
+                        </button>
+                    </div>
+
+                    <div class="result-message"></div>
+                </div>
+            </div>
+
+
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+
+                <div class="step-content">
+                    <h3>Verify temperature measurement</h3>
+                    <p>
+                        Compare the displayed temperature with an independent
+                        calibrated reference.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="result-btn" data-result="OK">
+                            ✓ Measurement plausible
+                        </button>
+
+                        <button class="result-btn warning" data-result="NOT_OK">
+                            ✕ Measurement suspicious
+                        </button>
+                    </div>
+
+                    <div class="result-message"></div>
+                </div>
+            </div>
+
+
+            <div class="step" data-step="5">
+                <div class="step-number">5</div>
+
+                <div class="step-content">
+                    <h3>Check fermentation conditions</h3>
+                    <p>
+                        Verify alcohol concentration, aeration and other
+                        relevant process conditions.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="result-btn" data-result="OK">
+                            ✓ Process conditions OK
+                        </button>
+
+                        <button class="result-btn warning" data-result="NOT_OK">
+                            ✕ Process deviation
+                        </button>
+                    </div>
+
+                    <div class="result-message"></div>
+                </div>
+            </div>
+
+
+            <div id="resolutionBox" class="resolution-box hidden">
+
+                <h3>Is the problem resolved?</h3>
+
+                <p>
+                    Record the current status so that the service team has
+                    a structured overview if further assistance is required.
+                </p>
+
+                <div class="resolution-actions">
+
+                    <button id="resolvedBtn" class="primary-btn">
+                        ✓ Yes – problem resolved
+                    </button>
+
+                    <button id="serviceBtn" class="secondary-btn">
+                        Request FRINGS service
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <aside class="side-card">
+
+            <div class="side-title">
+                <div class="eyebrow">SERVICE ACCESS</div>
+                <h2>Scan from the HMI</h2>
+            </div>
+
+            <div class="qr-container">
+                <div id="qrcode"></div>
+            </div>
+
+            <p class="qr-caption">
+                Scan this QR code to open the troubleshooting workflow
+                with the device and alarm information pre-filled.
+            </p>
+
+            <div class="url-box">
+                <span>DEMO URL</span>
+                <code id="demoUrl"></code>
+            </div>
+
+
+            <div class="concept-box">
+
+                <h3>Concept</h3>
+
+                <ol>
+                    <li>Machine alarm occurs</li>
+                    <li>Operator scans QR code</li>
+                    <li>Guided troubleshooting starts</li>
+                    <li>Results are documented</li>
+                    <li>Service case can be created</li>
+                </ol>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+
+    <section id="serviceCase" class="service-case hidden">
+
+        <div class="section-heading">
+            <div>
+                <div class="eyebrow">SERVICE CASE</div>
+                <h2>Structured service request</h2>
+            </div>
+
+            <span id="priorityBadge" class="priority-badge">
+                HIGH PRIORITY
+            </span>
+        </div>
+
+
+        <div class="case-grid">
+
+            <div>
+                <span>DEVICE</span>
+                <strong id="caseDevice">AC-2026-017</strong>
+            </div>
+
+            <div>
+                <span>ALARM</span>
+                <strong>A-1042</strong>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong id="caseStatus">Service requested</strong>
+            </div>
+
+            <div>
+                <span>RECOMMENDED ACTION</span>
+                <strong id="recommendedAction">
+                    Service team review
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="case-actions">
+
+            <button id="emailBtn" class="primary-btn">
+                Create service email
+            </button>
+
+            <a href="service.html" class="secondary-btn">
+                Open service dashboard
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="architecture">
+
+        <div class="eyebrow">SYSTEM CONCEPT</div>
+
+        <h2>From machine alarm to service response</h2>
+
+        <div class="architecture-flow">
+
+            <div class="architecture-item">
+                <strong>ACETATOR</strong>
+                <span>Process equipment</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>PLC</strong>
+                <span>Machine control</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>HMI</strong>
+                <span>Alarm + QR</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>SERVICE PORTAL</strong>
+                <span>Guided diagnosis</span>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="architecture-item">
+                <strong>FRINGS SERVICE</strong>
+                <span>Follow-up</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        Independent prototype for application demonstration.
+    </div>
+
+    <div>
+        DEMO · NOT CONNECTED TO A REAL MACHINE
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
